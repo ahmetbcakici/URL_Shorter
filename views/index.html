@@ -11,16 +11,32 @@
     <style>
         body {
             background-color: #00D1B2;
-            text-align: center;
             font-family: 'Open Sans', sans-serif;
+        }
+        
+        .container {
+            height: 200px;
+            position: relative;
+            border: 3px solid green;
+        }
+        
+        .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
 
 <body>
-    <h1>Hey!</h1>
-    <input type="text" placeholder="Link to make shorter" id="linkToShorten" />
-    <button onclick="postLinkToShort()">asd</button>
+    <div class="center">
+        <input type="text" placeholder="Link to make shorter" id="linkToShorten" />
+        <button onclick="postLinkToShort()">Shorten!</button>
+    </div>
+
     <script>
         function postLinkToShort() {
             let originalLink = document.getElementById('linkToShorten').value;

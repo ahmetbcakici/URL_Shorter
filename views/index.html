@@ -4,11 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+
     <title>Document</title>
     <style>
         body {
             background-color: #00D1B2;
             text-align: center;
+            font-family: 'Open Sans', sans-serif;
         }
     </style>
 </head>
@@ -19,7 +23,7 @@
     <button onclick="postLinkToShort()">asd</button>
     <script>
         function postLinkToShort() {
-            var originalLink = document.getElementById('linkToShorten').value;
+            let originalLink = document.getElementById('linkToShorten').value;
 
 
             fetch("http://localhost:9090/", {
@@ -33,7 +37,7 @@
                     })
                 }).then(res => res.json())
                 .then(res => {
-                    console.log(res.shortLink)
+                    document.getElementById('linkToShorten').value = `${window.location.origin}/${res.shortLink}`;
                 });
 
 

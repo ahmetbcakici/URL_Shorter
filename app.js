@@ -28,24 +28,29 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
     const { originalLink } = req.body;
     let shortLink =
-        originalLink[originalLink.length - 1] +
+        originalLink[8] +
         Date.now()
         .toString()
         .substr(9, 4) +
         originalLink[originalLink.length - 2];
+
+    const sql = `INSERT INTO Links (link_original, link_short) VALUES ('${originalLink}', '${shortLink}')`;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+    });
+
     res.json({ shortLink });
 });
 
 app.get('/:link_short', (req, res) => {
     const { link_short } = req.params;
-    con.query(`SELECT * FROM Links WHERE link_short = '${link_short}'`, function(
-        err,
-        result,
-        fields
-    ) {
-        if (err) throw err;
-        if (result.length > 0) return res.redirect(result[0].link_original);
-    });
+    con.query(
+        `SELECT * FROM Links WHERE link_short = '${link_short}'`,
+        (err, result, fields) => {
+            if (err) throw err;
+            if (result.length > 0) return res.redirect(result[0].link_original);
+        }
+    );
 });
 
 app.listen(PORT, () => console.log(`Working on ${PORT}`));
